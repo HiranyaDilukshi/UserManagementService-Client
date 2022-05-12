@@ -85,7 +85,8 @@
 
     	<div id= "alertSuccess" class="alert alert-success"></div>
      	<div id = "alertError" class="alert alert-danger"></div>
-        
+     	<br>
+        <br>   
         <div id ="divAccountsGrid">
   		<%
   			 Account accObj = new Account(); 
