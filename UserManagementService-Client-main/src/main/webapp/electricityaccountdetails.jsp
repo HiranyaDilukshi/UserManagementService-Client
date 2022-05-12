@@ -1,3 +1,7 @@
+<%@ page import="com.Account"%>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
    <head>
@@ -6,7 +10,10 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Bootstrap CSS -->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-      <link rel="stylesheet" href="styles.css">
+   
+      <script src="Components/jquery-3.2.1.min.js"></script>
+      <script src="Components/accountdetails.js"></script>
+      
       
       <title>User Service</title>
       <style>
@@ -38,107 +45,57 @@
       <br>
       <div class="container">
       <div style="display: flex; flex-direction: row; justify-content: space-between">
-      	<h1>User Service Management</h1>
+      	<h3>Electricity Account Details Management Service</h3>
       	<button id="logoutButton" class="btn btn-danger">Logout</button>
       </div>
       <br>
-      <form>
-         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input class="form-control" id="name" aria-describedby="namelHelp">
-         </div>
-         <div id="nameerror" class="alert alert-danger hide" role="alert" style="display: none">
-      Invalid name 
-      </div>
-         <div class="mb-3" style="display: none">
-            <label for="id" class="form-label">Name</label>
-            <input class="form-control" id="id" aria-describedby="idHelp">
+      <form id="formAccount" name="formAccount" method="post" action="electricityaccountdetails.jsp">
+      <div class="mb-3">
+      <label for="accountno" class="form-label">Account Number</label>
+      <input class="form-control" name="accountno" id="accountno" type="text" aria-describedby="usernameHelp">
+   </div>
+         <div class="mb-3" >
+            <label for="premisesid" class="form-label">Premises ID</label>
+            <input class="form-control" id="premisesid" name="premisesid" >
          </div>
          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input class="form-control" id="email" aria-describedby="emailHelp">
+            <label for="areaoffice" class="form-label">Area Office</label>
+            <input class="form-control" id="areaoffice" name="areaoffice">
          </div>
-          <div id="emailerror" class="alert alert-danger hide" role="alert" style="display: none">
-      Invalid email 
-      </div>
+         
          <div>
             <div class="row">
                <div class="col">
                   <div class="mb-3">
-                     <label for="password" class="form-label">Password</label>
-                     <input class="form-control" id="password" aria-describedby=passwordHelp" type="password">
+                     <label for="tarifftype" class="form-label">Tariff Type</label>
+                     <input class="form-control" id="tarifftype" name="tarifftype">
                   </div>
                </div>
                <div class="col">
-                  <div class="col">
-                     <div class="mb-3">
-                        <label for="cpassword" class="form-label">Confirm Password</label>
-                        <input class="form-control" id="cpassword" aria-describedby=cpasswordHelp" type="password">
-                     </div>
-                  </div>
+                  
                </div>
             </div>
-            <div id="passworderror" class="alert alert-danger hide" role="alert" style="display: none">
-      Invalid password 
-      </div>
-            <div class="mb-3">
-               <label for="CID" class="form-label">CID</label>
-               <input class="form-control" id="CID" aria-describedby="CIDHelp">
-            </div>
-            <div id="CIDerror" class="alert alert-danger hide" role="alert" style="display: none">
-      Invalid categoryID 
-      </div>
+           
             <br>
-            <button class="btn btn-primary submit">Submit</button>
-            
-          						 
-            <button class="btn btn-primary update">Update</button>
+            <input id="btnSave" name="btnSave" type="button" value="Save"
+			 class="btn btn-primary">
+           <input type="hidden" id="hidAccountIDSave" name="hidAccountIDSave" value="">
       </form>
-      <br/>
-      <br/>
-      <div id="deleteLabel" class="alert alert-success hide" role="alert" style="display: none">
-      Succesfully delected the Researcher. 
-      </div>
-      <div id="insertLabel" class="alert alert-success hide" role="alert" style="display: none">
-      Succesfully inserted the Researcher. 
-      </div>
-      <div id="updateLabel" class="alert alert-success hide" role="alert" style="display: none">
-      Succesfully updated the Researcher. 
-      </div>
-      <div id="deleteLabelerror" class="alert alert-danger hide" role="alert" style="display: none">
-      Error while deleting the Researcher. 
-      </div>
-      <div id="insertLabelerror" class="alert alert-danger hide" role="alert" style="display: none">
-      Error while inserting the Researcher. 
-      </div>
-      <div id="updateLabelerror" class="alert alert-danger hide" role="alert" style="display: none">
-      Error while updating the Researcher. 
-      </div>
-    
-	
-	
-      <table class="table">
-      <thead>
-      <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">CID</th>
-      <th scope="col">Action</th>
-      </tr>
-      </thead>
-      <tbody id="researcher_table">
-      </tbody>
-      </table>
+      
+
+    	<div id= "alertSuccess" class="alert alert-success"></div>
+     	<div id = "alertError" class="alert alert-danger"></div>
+        
+        <div id ="divAccountsGrid">
+  		<%
+  			 Account accObj = new Account(); 
+  	 		 out.print(accObj.readAccounts()); 
+  		%>
+  </div>
+     
       </div>
       <!--grid -->
       <!--end grid -->
-      <!-- Option 1: Bootstrap Bundle with Popper -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-      <script
-         src="https://code.jquery.com/jquery-3.6.0.js"
-         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-         crossorigin="anonymous"></script>
-      <script src="script.js"></script>
+      
    </body>
 </html>
