@@ -52,12 +52,12 @@
 <div class="jumbotron">
   <form id="formLogin">
   <div class="form-group">
-    <label for="username">Username</label>
+    <label for="username">Username:</label>
     <input id="txtUsername" name="txtUsername" type="text">
    
   </div>
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">Password:</label>
     <input id="txtPassword" name="txtPassword" type="password">
   </div>
   <div style="margin-top: 40px">
